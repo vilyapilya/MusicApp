@@ -17,23 +17,16 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    if @user &&  logged_in?
-      session[:session_token] = nil
-      @user.reset_session_token!
-    end
+    logout_user!(current_user)
+    redirect_to new_sessions_url
   end
 
 private
 
-def user_params
-  params.require(:user).permit(:email, :password)
-end
-
-def check_login
-  if current_user
-    redirect_to user_url(@current_user)
+  def user_params
+    params.require(:user).permit(:email, :password)
   end
-end
+
 
 
 end

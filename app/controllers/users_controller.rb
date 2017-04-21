@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :check_login, only: [:new, :create]
 
   def new
     render :new
